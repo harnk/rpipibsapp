@@ -1,0 +1,20 @@
+{
+    "ip_address": "10.2.1.5",
+    "broker_name": "fmnc.cse.nd.edu",
+        "initial_topics": [
+        "pibs/clients/command/tbdmymacaddr",
+        "pibs/clients/command/command_to_all"
+    ],
+    "sensors": [
+        {"type":"sensors.clock.RaspberryClock", "hardware_id": "2"},
+        {"type":"sensors.locationing.DummyGPS",
+         "hardware_id": "3",
+         "latitude": 0,
+         "longitude": 0,
+         "altitude": 777} 
+     ],
+      "init_tasks": [{"task_name": "tasks.test.echo",
+                    "arguments": {"topic": "pibs/clients/status", "echo_text": "initialization"}}]
+
+}
+
