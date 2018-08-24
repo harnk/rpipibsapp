@@ -2,7 +2,7 @@
     "ip_address": "10.2.1.5",
     "broker_name": "fmnc.cse.nd.edu",
         "initial_topics": [
-        "pibs/clients/command/tbdmymacaddr",
+        "pibs/clients/status/b827eb1e211c",
         "pibs/clients/command/command_to_all"
     ],
     "sensors": [

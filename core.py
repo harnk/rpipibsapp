@@ -5,6 +5,7 @@ import paho.mqtt.client as mqtt
 import Queue
 import time
 import threading
+import socket
 import uuid
 from definitions import *
 import copy
@@ -38,6 +39,9 @@ class Node(object):
             self.broker_name = system[key_broker_name]
         else:
             self.broker_name = None
+
+        background = AsyncUDPReceiver(5002)
+        background.start()
 
         if messenger != None:
             self.messenger = messenger
@@ -338,5 +342,25 @@ class NodeSensors(object):
 
     def __getitem__(self, i):
         return self._list[i]
+
+
+class AsyncUDPReceiver(threading.Thread):
+    def __init__(self, port):
+        threading.Thread.__init__(self)
+        self.port = port
+
+    def run(self):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+
+        address = ('', self.port)
+        sock.bind(address)
+        print "Running background UDP thread"
+        while True:
+            data, addr = sock.recvfrom(1024)
+            print data
+            print addr
 
 
