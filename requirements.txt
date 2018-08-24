@@ -1,3 +1,4 @@
 gps
 paho-mqtt
 netifaces
+requests
