@@ -156,6 +156,7 @@ class Node(object):
         self._looping_flag = 1
         while self._looping_flag == 1:
 
+            # Check for MQTT received messages
             if self.messenger is not None and \
                     not self.messenger.msg_queue.empty():
                 msg = self.messenger.msg_queue.get()
@@ -167,12 +168,12 @@ class Node(object):
             self.manageTasks()
 
 
-
+            # Check for UDP received messages
             if self.background is not None and \
                     not self.background.msg_queue.empty():
                 msg = self.background.msg_queue.get()
-                print ('background msg_queue contains: '+msg)
-                # self.processMessage(msg)
+                print ('UDP: '+msg)
+                self.processMessage(msg)
 
 
 
@@ -378,6 +379,7 @@ class AsyncUDPReceiver(threading.Thread):
         print "Running background UDP thread"
         while True:
             data, addr = sock.recvfrom(1024)
+            print 'UDP: Message received @time: ', current_milli_time(), 'ms'
             self.msg_queue.put(data)
             # print data
             print addr
