@@ -15,7 +15,7 @@ current_milli_time = lambda: int(round(time.time() * 1000))
 class Node(object):
     def __init__(self, system=None, mac_address=None,
                  broker_name=None, messenger=None, initial_topics=None,
-                 node_sensors=None, short_name=None, group_name=None):
+                 node_sensors=None, background=None, group_name=None):
         self.system = system
         self.all_sensors = tools.getAllClassesDict(sensors)
         self.all_tasks = tools.getAllFunctionsDict(tasks)
@@ -40,8 +40,12 @@ class Node(object):
         else:
             self.broker_name = None
 
-        background = AsyncUDPReceiver(5002)
-        background.start()
+
+        if background != None:
+            self.background = background
+        else:
+            self.background = AsyncUDPReceiver(5002)
+            self.background.start()
 
         if messenger != None:
             self.messenger = messenger
@@ -151,14 +155,27 @@ class Node(object):
     def loop_start(self):
         self._looping_flag = 1
         while self._looping_flag == 1:
+
             if self.messenger is not None and \
                     not self.messenger.msg_queue.empty():
                 msg = self.messenger.msg_queue.get()
                 # print ('msg_queue contains: '+msg)
                 self.processMessage(msg)
+
             if self.messenger is not None:
                 self.heartbeat()
             self.manageTasks()
+
+
+
+            if self.background is not None and \
+                    not self.background.msg_queue.empty():
+                msg = self.background.msg_queue.get()
+                print ('background msg_queue contains: '+msg)
+                # self.processMessage(msg)
+
+
+
             time.sleep(.01)
 
     def loop_stop(self):
@@ -347,6 +364,7 @@ class NodeSensors(object):
 class AsyncUDPReceiver(threading.Thread):
     def __init__(self, port):
         threading.Thread.__init__(self)
+        self.msg_queue = Queue.Queue()
         self.port = port
 
     def run(self):
@@ -360,7 +378,8 @@ class AsyncUDPReceiver(threading.Thread):
         print "Running background UDP thread"
         while True:
             data, addr = sock.recvfrom(1024)
-            print data
+            self.msg_queue.put(data)
+            # print data
             print addr
 
 
