@@ -172,7 +172,7 @@ class Node(object):
             if self.background is not None and \
                     not self.background.msg_queue.empty():
                 msg = self.background.msg_queue.get()
-                print ('UDP: '+msg)
+                print (msg)
                 self.processMessage(msg)
 
 
@@ -376,7 +376,7 @@ class AsyncUDPReceiver(threading.Thread):
 
         address = ('', self.port)
         sock.bind(address)
-        print "Running background UDP thread"
+        print "Starting background UDP thread"
         while True:
             data, addr = sock.recvfrom(1024)
             print 'UDP: Message received @time: ', current_milli_time(), 'ms'
