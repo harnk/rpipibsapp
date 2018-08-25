@@ -17,3 +17,8 @@ def detectAndAvoid(node,args):
     print args[key_current_position]
     print args[key_heading]
     print 'Detect and Avoid Logic Goes Here TBD'
+    # dist = tools.getDistanceInMeters(args[key_current_position],[41.739565, -86.099060, 100])
+    # dist = tools.getDistanceInMeters([41.739565, -86.099060, 100],[41.739001, -86.097830, 110])
+    dist = tools.getDistanceInMeters([41.739565, -86.099060, 100],[41.739565, -86.099060, 500])
+    print str(dist) + " meters away factoring in alt ..."
+

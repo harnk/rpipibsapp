@@ -6,6 +6,7 @@ import subprocess
 import commands
 import platform
 from definitions import *
+from math import sin, cos, sqrt, atan2, radians
 
 class bcolors:
     HEADER = '\033[95m'
@@ -264,3 +265,27 @@ def getIPAddress():
         print("Command does not work outside Linux")
         RetMyIP = ''
     return RetMyIP
+# ------------------------------------------------------------------
+def getDistanceInMeters(position1, position2):
+    # approximate radius of earth in km
+    R = 6373.0
+
+    lat1 = radians(position1[0])
+    lon1 = radians(position1[1])
+    alt1 = position1[2]
+    lat2 = radians(position2[0])
+    lon2 = radians(position2[1])
+    alt2 = position2[2]
+    dlon = lon2 - lon1
+    dlat = lat2 - lat1
+
+    a = sin(dlat / 2) ** 2 + cos(lat1) * cos(lat2) * sin(dlon / 2) ** 2
+    c = 2 * atan2(sqrt(a), sqrt(1 - a))
+
+    distance = R * c * 1000
+
+    dist = sqrt(distance **2 + (alt2-alt1)**2)
+
+    print("Result:", distance)
+    print("Result w/alt:", dist)
+    return dist
