@@ -1,7 +1,7 @@
 '''
 start.py
 
-This is the starting point for the rpipibsapp.
+This is the starting point for the pibs_client.
 To run:
 $ pip install -r requirements.txt  (1st time only)
 $ python start.py
