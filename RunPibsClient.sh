@@ -1,18 +1,6 @@
 #!/usr/bin/env bash
 # -*- coding: utf-8 -*-
 #
-# Copyright 2018 University of Notre Dame.
-#
-# This is free software; you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 3, or (at your option)
-# any later version.
-#
-# You should have received a copy of the GNU General Public License
-# along with GNU Radio; see the file COPYING.  If not, write to
-# the Free Software Foundation, Inc., 51 Franklin Street,
-# Boston, MA 02110-1301, USA.
-#
 
 # run as sudo on Linux
 if [[ $(uname) == "Linux" ]]; then

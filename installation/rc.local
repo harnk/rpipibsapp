@@ -18,5 +18,5 @@ if [ "$_IP" ]; then
 fi
 
 
-/home/pi/pibs_client/run_pibs_client.sh &
+/home/pi/pibs_client/RunPibsClient.sh &
 exit 0

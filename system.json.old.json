@@ -6,9 +6,9 @@
         "pibs/clients/command/command_to_all"
     ],
     "sensors": [
-        {"type":"sensors.clock.RaspberryClock", "hardware_id": "2"},
+        {"type":"sensors.clock.RaspberryClock", "hardware_id": "1"},
         {"type":"sensors.locationing.DummyGPS",
-         "hardware_id": "3",
+         "hardware_id": "2",
          "latitude": 0,
          "longitude": 0,
          "altitude": 777} 

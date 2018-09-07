@@ -1,0 +1,20 @@
+This folder contains the rsa keys for ssh access.
+
+Concept: The local machine keeps the private key.  A public key is 
+put on machines that we want to access without a password.  In our
+case, we want to pull a remote git repo without having to enter a 
+password.  So we put the public key on a server under a particular
+user who has restricted permissions on the machine.
+
+id_rsa: private key
+# keep on local machine: /home/pi/.ssh/id_rsa
+# change permissions
+chmod 0600 /home/pi/.ssh/id_rsa
+# Enabling pi@pi keys
+eval "$(ssh-agent -s)"
+ssh-add /home/pi/.ssh/id_rsa
+
+id_rsa.pub: public key 
+# put on any machine that you want to access without a password.
+# On the other machine, put public key in .ssh/known_hosts:
+cat id_rsa.pub >> /home/<user>/.ssh/known_hosts
