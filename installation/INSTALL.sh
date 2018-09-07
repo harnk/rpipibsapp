@@ -87,6 +87,6 @@ echo "-> Finished." | tee -a $LOGPATH/PC_install_log.txt
 echo "Finished configuration." | tee -a $LOGPATH/PC_install_log.txt
 date | tee -a $LOGPATH/PC_install_log.txt
 echo "See $LOGPATH/PC_install_log.txt for a log of the installation."
-echo "Please reboot now."
+echo "Please reboot now after editing /etc/network/interfaces to set the static ip."
 
 exit 0;
