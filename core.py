@@ -177,8 +177,7 @@ class Node(object):
                     not self.background.msg_queue.empty():
                 msg = self.background.msg_queue.get()
                 print "from msg queue: ",msg
-                self.processMessage(json.dumps(msg))
-
+                self.processMessage(msg.replace("'",'"'))
 
 
             time.sleep(.01)
