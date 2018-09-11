@@ -177,7 +177,7 @@ class Node(object):
                     not self.background.msg_queue.empty():
                 msg = self.background.msg_queue.get()
                 print "from msg queue: ",msg
-                self.processMessage(msg.replace("'",'"'))
+                self.processMessage(msg)
 
 
             time.sleep(.01)
@@ -247,7 +247,7 @@ class Node(object):
             self.last_wifi_heartbeat = now
             # print 'wifi heartbeat at %s' % str(now)
             payload = self.heartbeatMessage()
-            self.sock.sendto(str(payload),('10.2.1.255', 5002))
+            self.sock.sendto(payload=json.dumps(payload),('10.2.1.255', 5002))
         if (now - self.last_lte_heartbeat) > LTE_HEARTBEAT_RATE:
             self.last_lte_heartbeat = now
             # print 'lte heartbeat at %s' % str(now)
