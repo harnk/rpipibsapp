@@ -246,8 +246,8 @@ class Node(object):
         if (now - self.last_wifi_heartbeat) > WIFI_HEARTBEAT_RATE:
             self.last_wifi_heartbeat = now
             # print 'wifi heartbeat at %s' % str(now)
-            payload = self.heartbeatMessage()
-            self.sock.sendto(payload=json.dumps(payload),('10.2.1.255', 5002))
+            payload = json.dumps(self.heartbeatMessage())
+            self.sock.sendto(payload,('10.2.1.255', 5002))
         if (now - self.last_lte_heartbeat) > LTE_HEARTBEAT_RATE:
             self.last_lte_heartbeat = now
             # print 'lte heartbeat at %s' % str(now)
