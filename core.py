@@ -25,8 +25,12 @@ class Node(object):
         self.running_tasks = []
         self._looping_flag = 0
 
-        self.last_heartbeat = time.time()
-        self.last_updateconfig = self.last_heartbeat
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+
+        self.last_lte_heartbeat = time.time()
+        self.last_wifi_heartbeat = self.last_lte_heartbeat
+        self.last_updateconfig = self.last_lte_heartbeat
 
         if mac_address != None:
             self.mac_address = mac_address.replace(':', '')
@@ -235,14 +239,19 @@ class Node(object):
                 pass
 
     def heartbeat(self):
-        # Information updated every HEARTBEAT_RATE seconds: gps location
+        # Information updated every LTE_HEARTBEAT_RATE seconds: gps location
         # Information updated every UPDATECONFIG_RATE seconds: IP address, disk used, disk free
         # Information set only once at beginning: everything else*
         # *Note: broker name, short name, group name can be changed at will with another task
         now = time.time()
-        if (now - self.last_heartbeat) > HEARTBEAT_RATE:
-            self.last_heartbeat = now
-            # print 'heartbeat at %s' % str(now)
+        if (now - self.last_wifi_heartbeat) > WIFI_HEARTBEAT_RATE:
+            self.last_wifi_heartbeat = now
+            # print 'wifi heartbeat at %s' % str(now)
+            payload = self.heartbeatMessage()
+            self.sock.sendto(payload,('10.2.1.255', 5002))
+        if (now - self.last_lte_heartbeat) > LTE_HEARTBEAT_RATE:
+            self.last_lte_heartbeat = now
+            # print 'lte heartbeat at %s' % str(now)
             payload = self.heartbeatMessage()
             self.messenger.publish(PIBS_MQTT_STATUS_TOPIC_BASE + self.mac_address, \
                                    payload=json.dumps(payload))
