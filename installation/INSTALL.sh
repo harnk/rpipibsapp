@@ -42,6 +42,11 @@ echo "->Finished installing dependencies..." | tee -a $LOGPATH/PC_install_log.tx
 #sudo $SCRIPTPATH/EnableGPS.sh
 #echo "-> Finished." | tee -a $LOGPATH/PC_install_log.txt
 
+# Enable GPS
+echo "=== Enable Reading Serial Port / GPS ==================" | tee -a $LOGPATH/PC_install_log.txt
+sudo $SCRIPTPATH/EnableGPSHat.sh
+echo "-> Finished." | tee -a $LOGPATH/PC_install_log.txt
+
 # Enable SSH
 echo "=== Enable SSH for debugging ====="
 sudo $SCRIPTPATH/EnableSSH.sh
