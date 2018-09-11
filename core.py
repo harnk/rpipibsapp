@@ -390,7 +390,7 @@ class AsyncUDPReceiver(threading.Thread):
             data, addr = sock.recvfrom(1024)
             print 'UDP: Message received @time: ', current_milli_time(), 'ms'
             self.msg_queue.put(data)
-            # print data
+            print data
             print addr
 
 

@@ -22,7 +22,7 @@ PIBS_MQTT_DEFAULT_DEBUG_TOPIC = 'pibs/debug'
 
 # Heartbeat periodicity
 LTE_HEARTBEAT_RATE = 10 # seconds
-WIFI_HEARTBEAT_RATE = 4 # seconds
+WIFI_HEARTBEAT_RATE = 12 # seconds
 UPDATECONFIG_RATE = 60 # seconds
 
 # PIBS and task Key Names
