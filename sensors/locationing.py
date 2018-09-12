@@ -4,7 +4,7 @@ import requests
 from requests.packages.urllib3 import exceptions
 import os, sys
 import tools
-# import gps
+import gps
 
 
 ###############################################################################

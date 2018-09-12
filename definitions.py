@@ -25,6 +25,9 @@ LTE_HEARTBEAT_RATE = 40 # seconds
 WIFI_HEARTBEAT_RATE = 42 # seconds
 UPDATECONFIG_RATE = 60 # seconds
 
+# GPS parameters
+GPS_TOLERANCE = 10 # meters
+
 # PIBS and task Key Names
 key_task_name = 'task_name'
 key_arguments = 'arguments'
