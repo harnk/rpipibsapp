@@ -8,11 +8,11 @@ LOGPATH=/home/pi
 # install dependencies
 sudo apt-get install gpsd gpsd-clients python-gps -y
 # modify the default settings
-sudo echo START_DAEMON="true" > /etc/default/gpsd
-sudo echo GPSD_OPTIONS="-n" >> /etc/default/gpsd
-sudo echo DEVICES="/dev/serial0" >> /etc/default/gpsd
-sudo echo GPSD_SOCKET="/var/run/gpsd.sock" >> /etc/default/gpsd
-sudo echo USBAUTO="true" >> /etc/default/gpsd
+echo START_DAEMON="true" | sudo tee /etc/default/gpsd
+echo GPSD_OPTIONS="-n" | sudo tee -a /etc/default/gpsd
+echo DEVICES="/dev/serial0" | sudo tee -a /etc/default/gpsd
+echo GPSD_SOCKET="/var/run/gpsd.sock" | sudo tee -a /etc/default/gpsd
+echo USBAUTO="true" | sudo tee -a /etc/default/gpsd
 
 # modify the serial port usage
 
