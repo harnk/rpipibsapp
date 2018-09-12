@@ -27,6 +27,7 @@ UPDATECONFIG_RATE = 60 # seconds
 
 # GPS parameters
 GPS_TOLERANCE = 10 # meters
+GPS_UPDATE_RATE = 5 # seconds
 
 # PIBS and task Key Names
 key_task_name = 'task_name'
