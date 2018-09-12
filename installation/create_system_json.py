@@ -42,6 +42,7 @@ def create_system_json():
         "mac_address": macAddress,
         "broker_name": "fmnc.cse.nd.edu",
         "initial_topics": [
+            "pibs/clients/command/"+macAddress,
             "pibs/clients/command/command_to_all",
             "pibs/clients/status/"+macAddress
             ],
@@ -55,7 +56,7 @@ def create_system_json():
              "altitude": 777}
             ],
         "init_tasks": [{"task_name": "tasks.test.echo",
-                    "arguments": {"topic": "pibs/clients/status", "echo_text": "initialization"}}]
+                    "arguments": {"topic": "pibs/clients/command/"+macAddress, "echo_text": "initialization"}}]
         }
 
     with open(filename,'w') as fp:

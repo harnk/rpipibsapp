@@ -1,9 +1,13 @@
 import requests
 import json
 import time
+import sys
 from threading import Event
 from definitions import *
 import tools
+
+current_milli_time = lambda: int(round(time.time() * 1000))
+TAG = 'tasks.locationing.'
 
 def updateRaspberryPiGPSHat(node, args=None):
     # get gps for checking location
@@ -48,16 +52,17 @@ def updateRaspberryPiGPSHat(node, args=None):
 
 
 def getGPS(node, args):
-    '''
-    args = {
-        'topic': mqtt topic to return data on
-    }
-    '''
-    if 'topic' not in args:
+    print 'TASK: ' + TAG + sys._getframe().f_code.co_name + ' @time:', current_milli_time(), 'ms'
+    """
+    args =  {
+                "topic":<mqtt reply topic>"
+            }
+    """
+    if key_topic not in args:
         node.messenger.publish(PIBS_MQTT_DEFAULT_DEBUG_TOPIC,
                                payload='ERROR: tasks.locationing.getGPS requires the argument topic.')
     else:
-        topic = args['topic']
+        topic = args[key_topic]
         # get gps for checking location
         gps = node.sensors.getAnySensor('sensors.locationing')
         # get location
