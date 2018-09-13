@@ -22,12 +22,13 @@ def updateRaspberryPiGPSHat(node, args=None):
         lat = gps.gpsd.fix.latitude
         lon = gps.gpsd.fix.longitude
         alt = gps.gpsd.fix.altitude
+        gpstime = gps.gpsd.fix.time
     except:
         print("Error connecting to HAT GPS, try again later!")
     else:
         # if we move more than GPS_TOLERANCE, save location to file
         if lat != None and lon != None:
-            print "GPS Reading: ", lat, ", ", lon, ", ",alt
+            print "GPS Reading: ", lat, ", ", lon, ", ",alt, ", time: ",gpstime
             oldLat, oldLon, oldAlt = gps.getLocation()
             oldPosition = [oldLat, oldLon, oldAlt]
             newPosition = [lat, lon, alt]
