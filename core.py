@@ -156,21 +156,25 @@ class Node(object):
             sensors[i]['type'] = sensor_type
         return snsrs
 
+    # ####################################################################
+    # Main Loop
+    # Executes every 10 ms
+    # ####################################################################
     def loop_start(self):
         self._looping_flag = 1
         while self._looping_flag == 1:
 
-            # Check for MQTT received messages
+            # Check for MQTT or UDP received messages
             if self.messenger is not None and \
                     not self.messenger.msg_queue.empty():
                 msg = self.messenger.msg_queue.get()
                 # print ('msg_queue contains: '+msg)
                 self.processMessage(msg)
 
+            # Send heartbeat
             if self.messenger is not None:
                 self.heartbeat()
             self.manageTasks()
-
 
             # Check for UDP received messages
             if self.background is not None and \
@@ -178,7 +182,6 @@ class Node(object):
                 msg = self.background.msg_queue.get()
                 print "from msg queue: ",msg
                 self.processMessage(msg)
-
 
             time.sleep(.01)
 

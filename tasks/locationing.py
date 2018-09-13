@@ -46,9 +46,9 @@ def updateRaspberryPiGPSHat(node, args=None):
     # loop task by calling this task again
     payload_dict = {"task_name": "tasks.locationing.updateRaspberryPiGPSHat", "arguments": {}}
     payload_str = json.dumps(payload_dict)
-    if node.local_messenger != None:
+    if node.messenger != None:
         thisTopic = node.system['initial_topics'][0]
-        node.local_messenger.publish(thisTopic, payload_str)
+        node.messenger.publish(thisTopic, payload_str)
 
 def getRaspberryPiGPSHat(node,args):
     # get gps for checking location
@@ -62,7 +62,7 @@ def getRaspberryPiGPSHat(node,args):
     try:
         lat = gps.gpsd.fix.latitude
         lon = gps.gpsd.fix.longitude
-        atl = gps.gpsd.fix.altitude
+        alt = gps.gpsd.fix.altitude
     except:
         print("Error connecting to HAT GPS, try again later!")
 
