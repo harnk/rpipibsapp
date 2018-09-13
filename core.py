@@ -272,7 +272,7 @@ class Node(object):
         payload = {key_pibs_payload:{
             key_source_id: self.mac_address,
             key_uav_class: "uavclass???",
-            key_current_position:[41.6,-86.2,562],
+            key_current_position:[latitude,longitude,altitude],
             key_generation_time: generationTime,
             key_heading:[[41.7,-87.1,500],[41.8,-87.3,500]],
             key_resolution_advisory_flag:False,

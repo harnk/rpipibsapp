@@ -35,7 +35,7 @@ def updateRaspberryPiGPSHat(node, args=None):
             # update parameters in Manet class
             gps.setParameters(latitude=lat, longitude=lon, altitude=alt)
             if changeInDistance > GPS_TOLERANCE:
-                # save to file
+                # save to file the new lat lon alt
                 print "tools.saveConfigurationToFile(node) TBD",
 
                 # delay a bit, but clear the buffer while we wait...
@@ -43,7 +43,8 @@ def updateRaspberryPiGPSHat(node, args=None):
     while time.time() - then < GPS_UPDATE_RATE:  # wait 5 seconds
         gps.gpsd.next()  # this will continue to grab EACH set of gpsd info to clear the buffer
 
-    # loop task by calling this task again
+    # loop task by calling this task again SCXTT TBD - CHANGE THIS we dont want LTE round trip for every GPS reading
+    # May want to consider setting up a local MQTT broker like RH does
     payload_dict = {"task_name": "tasks.locationing.updateRaspberryPiGPSHat", "arguments": {}}
     payload_str = json.dumps(payload_dict)
     if node.messenger != None:
