@@ -14,7 +14,7 @@ TAG = 'tasks.pibs.'
 def detectAndAvoid(node,args):
     print 'TASK: ' + TAG + sys._getframe().f_code.co_name + ' @time:', current_milli_time(), 'ms'
     gps = node.sensors.getAnySensor('sensors.locationing')
-    myCurrentPosition = gps.getlocation()
+    myCurrentPosition = gps.getLocation()
     receivedPosition = args[key_current_position]
     print args[key_source_id]
     # print args[key_uav_class]
