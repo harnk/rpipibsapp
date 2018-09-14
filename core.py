@@ -31,6 +31,7 @@ class Node(object):
         self.last_lte_heartbeat = time.time()
         self.last_wifi_heartbeat = self.last_lte_heartbeat
         self.last_updateconfig = self.last_lte_heartbeat
+        self.last_gps_update = self.last_lte_heartbeat
 
         if mac_address != None:
             self.mac_address = mac_address.replace(':', '')
@@ -251,12 +252,12 @@ class Node(object):
             # print 'wifi heartbeat at %s' % str(now)
             payload = json.dumps(self.heartbeatMessage())
             self.sock.sendto(payload,('10.2.1.255', 5002))
-            ## put this here temporarily
 
+        if (now - self.last_gps_update) > GPS_UPDATE_RATE:
+            self.last_gps_update = now
             task_name = 'tasks.locationing.updateRaspberryPiGPSHat'
             arguments = {}  # arguments may be empty
             self.addRunningTask(task_name, arguments)
-
 
         if (now - self.last_lte_heartbeat) > LTE_HEARTBEAT_RATE:
             self.last_lte_heartbeat = now
