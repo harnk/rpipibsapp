@@ -9,6 +9,7 @@ import tools
 current_milli_time = lambda: int(round(time.time() * 1000))
 TAG = 'tasks.locationing.'
 
+
 def updateRaspberryPiGPSHat(node, args=None):
     # get gps for checking location
     gps = node.sensors.getAnySensor('sensors.locationing')
@@ -48,9 +49,9 @@ def updateRaspberryPiGPSHat(node, args=None):
     # May want to consider setting up a local MQTT broker like RH does
     payload_dict = {"task_name": "tasks.locationing.updateRaspberryPiGPSHat", "arguments": {}}
     payload_str = json.dumps(payload_dict)
-    if node.messenger != None:
-        thisTopic = node.system['initial_topics'][0]
-        node.messenger.publish(thisTopic, payload_str)
+    # if node.messenger != None:
+    #     thisTopic = node.system['initial_topics'][0]
+    #     node.messenger.publish(thisTopic, payload_str)
 
 def getRaspberryPiGPSHat(node,args):
     # get gps for checking location
