@@ -17,16 +17,15 @@ def detectAndAvoid(node,args):
     lat, lon, alt = gps.getLocation()
     myCurrentPosition = [lat,lon,alt]
     receivedPosition = args[key_current_position]
-    print args[key_source_id]
+    # print args[key_source_id]
     # print args[key_uav_class]
     # print args[key_current_position]
     # print args[key_heading]
-    print 'Detect and Avoid Logic Goes Here TBD'
+    print "Detect and Avoid Logic Goes Here TBD - message from: ",args[key_source_id]
     print "receivedPosition: ",receivedPosition,", myCurrentPosition: ",myCurrentPosition
-    # dist = tools.getDistanceInMeters(args[key_current_position],[41.739565, -86.099060, 100])
-    # dist = tools.getDistanceInMeters([41.739565, -86.099060, 100],[41.739001, -86.097830, 110])
-    dist = tools.getDistanceInMeters([41.739565, -86.099065, 100],[41.739565, -86.099060, 500])
-    # compare received location in message(args[key_current_position] with my current location
-    # dist = tools.getDistanceInMeters(args[key_current_position],[])
+    # dist = tools.getDistanceInMeters([41.739565, -86.099065, 100],[41.739565, -86.099060, 500])
+
+    # compare my current position with received position
+    dist = tools.getDistanceInMeters(myCurrentPosition,receivedPosition)
     print str(dist) + " meters away factoring in alt ..."
 
