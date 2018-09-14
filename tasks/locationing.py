@@ -26,6 +26,7 @@ def updateRaspberryPiGPSHat(node, args=None):
         gpstime = gps.gpsd.fix.time
     except:
         print("Error connecting to HAT GPS, try again later!")
+        return
     else:
         # if we move more than GPS_TOLERANCE, save location to file
         if lat != None and lon != None:
@@ -42,13 +43,13 @@ def updateRaspberryPiGPSHat(node, args=None):
 
                 # delay a bit, but clear the buffer while we wait...
     then = time.time()
-    while time.time() - then < GPS_UPDATE_RATE:  # wait 5 seconds
+    while time.time() - then < 1 :  # wait 1 seconds
         gps.gpsd.next()  # this will continue to grab EACH set of gpsd info to clear the buffer
 
     # loop task by calling this task again SCXTT TBD - CHANGE THIS we dont want LTE round trip for every GPS reading
     # May want to consider setting up a local MQTT broker like RH does
-    payload_dict = {"task_name": "tasks.locationing.updateRaspberryPiGPSHat", "arguments": {}}
-    payload_str = json.dumps(payload_dict)
+    # payload_dict = {"task_name": "tasks.locationing.updateRaspberryPiGPSHat", "arguments": {}}
+    # payload_str = json.dumps(payload_dict)
     # if node.messenger != None:
     #     thisTopic = node.system['initial_topics'][0]
     #     node.messenger.publish(thisTopic, payload_str)
