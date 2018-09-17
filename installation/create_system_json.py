@@ -44,6 +44,7 @@ def create_system_json():
         "initial_topics": [
             "pibs/clients/command/"+macAddress,
             "pibs/clients/command/command_to_all",
+            "pibs/clients/status/",
             "pibs/clients/status/"+macAddress
             ],
         "ip_address": getIPAddress(),

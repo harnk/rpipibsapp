@@ -263,8 +263,10 @@ class Node(object):
             self.last_lte_heartbeat = now
             # print 'lte heartbeat at %s' % str(now)
             payload = self.heartbeatMessage()
-            self.messenger.publish(PIBS_MQTT_STATUS_TOPIC_BASE + self.mac_address, \
-                                   payload=json.dumps(payload))
+            # self.messenger.publish(PIBS_MQTT_STATUS_TOPIC_BASE + self.mac_address, \
+            #                        payload=json.dumps(payload))
+            self.messenger.publish(PIBS_MQTT_STATUS_TOPIC_BASE , \
+                               payload=json.dumps(payload))
         if (now - self.last_updateconfig) > UPDATECONFIG_RATE:
             self.last_updateconfig = now
             # print 'updated config at %s' % str(now)
