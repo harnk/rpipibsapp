@@ -18,7 +18,7 @@ def updateRaspberryPiGPSHat(node, args=None):
     lon = None
     alt = None
     # check GPS
-    print("Checking HAT GPS ...")
+    # print("Checking HAT GPS ...")
     try:
         lat = gps.gpsd.fix.latitude
         lon = gps.gpsd.fix.longitude
@@ -30,7 +30,7 @@ def updateRaspberryPiGPSHat(node, args=None):
     else:
         # if we move more than GPS_TOLERANCE, save location to file
         if lat != None and lon != None:
-            print "GPS Reading: ", lat, ", ", lon, ", ",alt, ", time: ",gpstime
+            print "Hat GPS Reading: ", lat, ", ", lon, ", ",alt, ", time: ",gpstime
             oldLat, oldLon, oldAlt = gps.getLocation()
             oldPosition = [oldLat, oldLon, oldAlt]
             newPosition = [lat, lon, alt]

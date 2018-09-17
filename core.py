@@ -169,7 +169,7 @@ class Node(object):
             if self.messenger is not None and \
                     not self.messenger.msg_queue.empty():
                 msg = self.messenger.msg_queue.get()
-                # print ('msg_queue contains: '+msg)
+                print ('MQTT msg queue: '+msg)
                 self.processMessage(msg)
 
             # Send heartbeat
@@ -181,7 +181,7 @@ class Node(object):
             if self.background is not None and \
                     not self.background.msg_queue.empty():
                 msg = self.background.msg_queue.get()
-                print "from msg queue: ",msg
+                print "UDP msg queue: ",msg
                 self.processMessage(msg)
 
             time.sleep(.01)
@@ -330,7 +330,7 @@ class Messenger(mqtt.Client):
 
     def on_message(self, client, userdata, msg):
         print 'MQTT: Message received @time: ', current_milli_time(), 'ms'
-        print str(msg.payload)[0:200] + ' ...'
+        # print str(msg.payload)[0:200] + ' ...'
         self.msg_queue.put(msg.payload)
 
     #    def on_disconnect(self, client, userdata, rc):

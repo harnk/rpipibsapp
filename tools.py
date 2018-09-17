@@ -286,6 +286,6 @@ def getDistanceInMeters(position1, position2):
 
     dist = sqrt(distance **2 + (alt2-alt1)**2)
 
-    print("Result:", distance)
-    print("Result w/alt:", dist)
+    # print("Result:", distance)
+    # print("Result w/alt:", dist)
     return dist
