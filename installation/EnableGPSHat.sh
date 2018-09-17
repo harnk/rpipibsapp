@@ -16,13 +16,21 @@ sudo bash -c 'echo USBAUTO="true" >> /etc/default/gpsd'
 
 # modify the serial port usage
 
+if sudo grep -i -q "enable_uart=1" /boot/config.txt; then
+	echo "Serial port already enabled." | tee -a $LOGPATH/PC_install_log.txt
+else
+	# enable the serial port
+    sudo bash -c 'echo enable_uart=1 >> /boot/config.txt'
+	echo "Enabled serial port." | tee -a $LOGPATH/PC_install_log.txt
+fi
+
 if sudo grep -i -q "console=serial0,115200" /boot/cmdline.txt; then
 	# erase the expression from the file (this disables login via the serial port)
 	sudo sed -i -e 's/console=serial0,115200 //g' /boot/cmdline.txt
-	echo "Disabled login via serial port." | tee -a $LOGPATH/RH_install_log.txt
+	echo "Disabled login via serial port." | tee -a $LOGPATH/PC_install_log.txt
 else
 	# you're good!
-	echo "Login via serial port already disabled." | tee -a $LOGPATH/RH_install_log.txt
+	echo "Login via serial port already disabled." | tee -a $LOGPATH/PC_install_log.txt
 fi
 
 # check if splash is there for boot
