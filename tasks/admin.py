@@ -15,6 +15,11 @@ TAG = 'tasks.admin.'
 def stop_loop(node, args):
     node.loop_stop()
 
+def start_logging(node, args):
+    node.logging_start()
+
+def stop_logging(node, args):
+    node.logging_stop()
 
 def request_task_list(node, args):
     print 'TASK: ' + TAG + sys._getframe().f_code.co_name + ' @time:', current_milli_time(), 'ms'

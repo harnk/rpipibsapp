@@ -11,6 +11,7 @@ from definitions import *
 import copy
 
 current_milli_time = lambda: int(round(time.time() * 1000))
+filename = '/home/pi/pibsflightlog.txt'
 
 class Node(object):
     def __init__(self, system=None, mac_address=None,
@@ -24,6 +25,7 @@ class Node(object):
 
         self.running_tasks = []
         self._looping_flag = 0
+        self._logging_flag = 0
 
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
@@ -170,6 +172,9 @@ class Node(object):
                     not self.messenger.msg_queue.empty():
                 msg = self.messenger.msg_queue.get()
                 print ('MQTT msg queue: '+msg)
+                if self._logging_flag == 1:
+                    with open(filename, "a") as myfile:
+                        myfile.write("MQTT: " + msg)
                 self.processMessage(msg)
 
             # Send heartbeat
@@ -182,12 +187,21 @@ class Node(object):
                     not self.background.msg_queue.empty():
                 msg = self.background.msg_queue.get()
                 print "UDP msg queue: ",msg
+                if self._logging_flag == 1:
+                    with open(filename, "a") as myfile:
+                        myfile.write("UDP: " + msg)
                 self.processMessage(msg)
 
             time.sleep(.01)
 
     def loop_stop(self):
         self._looping_flag = 0
+
+    def logging_start(self):
+        self._logging_flag = 1
+
+    def logging_stop(self):
+        self._logging_flag = 0
 
     def addRunningTask(self, task_name, arguments):
         # Verify that the requested task exists
