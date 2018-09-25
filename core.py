@@ -27,6 +27,8 @@ class Node(object):
         self.running_tasks = []
         self._looping_flag = 0
         self._logging_flag = 0
+        self.wifi_msg_count = 0
+        self.lte_msg_count = 0
 
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
@@ -264,6 +266,7 @@ class Node(object):
         now = time.time()
         if (now - self.last_wifi_heartbeat) > WIFI_HEARTBEAT_RATE:
             self.last_wifi_heartbeat = now
+            self.wifi_msg_count += 1
             # print 'wifi heartbeat at %s' % str(now)
             payload = json.dumps(self.heartbeatMessage())
             self.sock.sendto(payload,('10.2.1.255', 5002))
@@ -276,6 +279,7 @@ class Node(object):
 
         if (now - self.last_lte_heartbeat) > LTE_HEARTBEAT_RATE:
             self.last_lte_heartbeat = now
+            self.lte_msg_count += 1
             # print 'lte heartbeat at %s' % str(now)
             payload = self.heartbeatMessage()
             # self.messenger.publish(PIBS_MQTT_STATUS_TOPIC_BASE + self.mac_address, \
@@ -296,7 +300,8 @@ class Node(object):
         generationTime = str(time.time())
         payload = {key_pibs_payload:{
             key_source_id: self.mac_address,
-            key_uav_class: "uavclass???",
+            key_msg_num: self.msg_count,
+            key_uav_class: "tbd",
             key_current_position:[latitude,longitude,altitude],
             key_generation_time: generationTime,
             key_heading:[[41.7,-87.1,500],[41.8,-87.3,500]],
