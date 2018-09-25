@@ -268,7 +268,7 @@ class Node(object):
             self.last_wifi_heartbeat = now
             self.wifi_msg_count += 1
             # print 'wifi heartbeat at %s' % str(now)
-            payload = json.dumps(self.heartbeatMessage())
+            payload = json.dumps(self.heartbeatMessage(self.wifi_msg_count))
             self.sock.sendto(payload,('10.2.1.255', 5002))
 
         if (now - self.last_gps_update) > GPS_UPDATE_RATE:
@@ -281,7 +281,7 @@ class Node(object):
             self.last_lte_heartbeat = now
             self.lte_msg_count += 1
             # print 'lte heartbeat at %s' % str(now)
-            payload = self.heartbeatMessage()
+            payload = self.heartbeatMessage(self.lte_msg_count)
             # self.messenger.publish(PIBS_MQTT_STATUS_TOPIC_BASE + self.mac_address, \
             #                        payload=json.dumps(payload))
             self.messenger.publish(PIBS_MQTT_STATUS_TOPIC_BASE , \
@@ -291,7 +291,7 @@ class Node(object):
             # print 'updated config at %s' % str(now)
             self.updateConfig()
 
-    def heartbeatMessage(self):
+    def heartbeatMessage(self, msgCnt):
         # get location
         gps = self.sensors.getAnySensor('sensors.locationing')
         latitude, longitude, altitude = gps.getLocation()
@@ -300,7 +300,7 @@ class Node(object):
         generationTime = str(time.time())
         payload = {key_pibs_payload:{
             key_source_id: self.mac_address,
-            key_msg_num: self.msg_count,
+            key_msg_num: msgCnt,
             key_uav_class: "tbd",
             key_current_position:[latitude,longitude,altitude],
             key_generation_time: generationTime,

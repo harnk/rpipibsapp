@@ -62,7 +62,7 @@ def request_status(node, args):
             }
     """
     try:
-        payload = node.heartbeatMessage()
+        payload = node.heartbeatMessage(0)
         payload[key_message] = 'STATUS'
         node.messenger.publish(str(args[key_topic]), payload=json.dumps(payload))
     except Exception as err:
