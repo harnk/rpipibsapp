@@ -11,7 +11,8 @@ from definitions import *
 import copy
 
 current_milli_time = lambda: int(round(time.time() * 1000))
-filename = '/home/pi/pibsflightlog.txt'
+wifiFilename = '/home/pi/pibs-wifilog.txt'
+lteFilename = '/home/pi/pibs-ltelog.txt'
 
 class Node(object):
     def __init__(self, system=None, mac_address=None,
@@ -173,8 +174,8 @@ class Node(object):
                 msg = self.messenger.msg_queue.get()
                 print ('MQTT msg queue: '+msg)
                 if self._logging_flag == 1:
-                    with open(filename, "a") as myfile:
-                        myfile.write("MQTT: " + msg)
+                    with open(lteFilename, "a") as myfile:
+                        myfile.write(msg + ',')
                 self.processMessage(msg)
 
             # Send heartbeat
@@ -188,8 +189,8 @@ class Node(object):
                 msg = self.background.msg_queue.get()
                 print "UDP msg queue: ",msg
                 if self._logging_flag == 1:
-                    with open(filename, "a") as myfile:
-                        myfile.write("UDP: " + msg)
+                    with open(wifiFilename, "a") as myfile:
+                        myfile.write(msg + ',')
                 self.processMessage(msg)
 
             time.sleep(.01)
