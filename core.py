@@ -300,13 +300,15 @@ class Node(object):
         generationTime = str(time.time())
         payload = {key_pibs_payload:{
             key_source_id: self.mac_address,
-            key_msg_num: msgCnt,
-            key_uav_class: "tbd",
+            # key_uav_class: "tbd",
             key_current_position:[latitude,longitude,altitude],
             key_generation_time: generationTime,
-            key_heading:[[41.7,-87.1,500],[41.8,-87.3,500]],
-            key_resolution_advisory_flag:False,
-            key_emergency_flag:False}}
+            # key_heading:[[41.7,-87.1,500],[41.8,-87.3,500]],
+            # key_resolution_advisory_flag:False,
+            # key_emergency_flag:False,
+            key_wifi_sig: tools.get_wifi_signal_level(),
+            key_msg_num: msgCnt
+        }}
 
         return payload
 

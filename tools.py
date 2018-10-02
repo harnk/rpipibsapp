@@ -217,6 +217,22 @@ def read_os_version():
 
     return myOS
 #------------------------------------------------------------------
+def get_wifi_signal_level():
+    process = subprocess.Popen( \
+        "iwlist wlan0 scan | grep 'Signal' | awk '{print $3}' | sed 's/^1000//'", \
+        shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    result, error = process.communicate()
+
+    if error != '':
+        print("WARNING: error in reading hardware version!")
+        return "Error"
+    else:
+        # print result.strip()
+        str = result.strip()
+        return str[6:]
+        # return result.strip()
+
+#------------------------------------------------------------------
 def read_hardware_version():
     '''
     This function determines the hardware revision number of the

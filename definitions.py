@@ -46,6 +46,7 @@ key_heading = 'heading'
 key_resolution_advisory_flag = 'resolution_advisory_flag'
 key_emergency_flag = 'emergency_flag'
 key_msg_num = 'msg_num'
+key_wifi_sig = 'wifi_sig'
 
 # Local Config File Key Names
 key_broker_name = 'broker_name'
