@@ -229,7 +229,7 @@ def get_wifi_signal_level():
     else:
         # print result.strip()
         str = result.strip()
-        return str[6:]
+        return str[6:9]
         # return result.strip()
 
 #------------------------------------------------------------------
