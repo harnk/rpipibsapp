@@ -298,6 +298,7 @@ class Node(object):
         # TODO: automate GPS
 
         generationTime = str(time.time())
+        signalStrength = tools.get_wifi_signal_level()
         payload = {key_pibs_payload:{
             key_source_id: self.mac_address,
             # key_uav_class: "tbd",
@@ -306,7 +307,7 @@ class Node(object):
             # key_heading:[[41.7,-87.1,500],[41.8,-87.3,500]],
             # key_resolution_advisory_flag:False,
             # key_emergency_flag:False,
-            key_wifi_sig: tools.get_wifi_signal_level(),
+            key_wifi_sig: signalStrength,
             key_msg_num: msgCnt
         }}
 
