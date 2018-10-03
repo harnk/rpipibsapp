@@ -219,7 +219,7 @@ def read_os_version():
 #------------------------------------------------------------------
 def get_wifi_signal_level():
     process = subprocess.Popen( \
-        "sudo iw wlan0 scan | grep 'Signal' | awk '{print $2}'", \
+        "sudo iw wlan0 scan | grep 'signal' | awk '{print $2}'", \
         shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     result, error = process.communicate()
 
@@ -228,7 +228,7 @@ def get_wifi_signal_level():
         return "Error"
     else:
         str = result.strip()
-        return str[0:6]
+        return str[0:5]
 
 #------------------------------------------------------------------
 def read_hardware_version():
