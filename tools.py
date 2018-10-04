@@ -224,11 +224,25 @@ def get_wifi_signal_level():
     result, error = process.communicate()
 
     if error != '':
-        print("WARNING: error in reading hardware version!")
+        print("WARNING: error in wifi signal level!")
         return "Error"
     else:
         str = result.strip()
         return str[0:5]
+
+#------------------------------------------------------------------
+def get_wifi_signal_quality():
+    process = subprocess.Popen( \
+        "iwlist wlan0 scan | grep 'Quality' | awk '{print $1}'", \
+        shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    result, error = process.communicate()
+
+    if error != '':
+        print("WARNING: error in reading wifi signal quality!")
+        return "Error"
+    else:
+        str = result.strip()
+        return str[8:13]
 
 #------------------------------------------------------------------
 def read_hardware_version():

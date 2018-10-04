@@ -299,6 +299,7 @@ class Node(object):
 
         generationTime = str(time.time())
         signalStrength = tools.get_wifi_signal_level()
+        signalQuality = tools.get_wifi_signal_quality()
         payload = {key_pibs_payload:{
             key_source_id: self.mac_address,
             # key_uav_class: "tbd",
@@ -308,6 +309,7 @@ class Node(object):
             # key_resolution_advisory_flag:False,
             # key_emergency_flag:False,
             key_wifi_sig: signalStrength,
+            key_wifi_qual: signalQuality,
             key_msg_num: msgCnt
         }}
 
